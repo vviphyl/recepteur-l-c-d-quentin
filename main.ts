@@ -67,17 +67,20 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (maqueen.readPatrol(maqueen.Patrol.PatrolLeft) == 0 && maqueen.readPatrol(maqueen.Patrol.PatrolRight) == 0) {
-        radio.sendValue("PARTIE", 2)
-    }
-})
-basic.forever(function () {
     while (_case < Dé) {
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 80)
     }
+    basic.showNumber(PARTIE)
 })
 basic.forever(function () {
-    if (maqueen.readPatrol(maqueen.Patrol.PatrolLeft) == 1 && maqueen.readPatrol(maqueen.Patrol.PatrolRight) == 1 && PARTIE == 2) {
-        PARTIE = 3
+    if (maqueen.readPatrol(maqueen.Patrol.PatrolLeft) == 0 && maqueen.readPatrol(maqueen.Patrol.PatrolRight) == 0 && PARTIE == 1) {
+        PARTIE = 2
+    } else {
+        if (maqueen.readPatrol(maqueen.Patrol.PatrolLeft) == 1 && maqueen.readPatrol(maqueen.Patrol.PatrolRight) == 1 && PARTIE == 2) {
+            PARTIE = 3
+        } else {
+            PARTIE = 1
+        }
     }
+    radio.sendValue("partie", PARTIE)
 })
